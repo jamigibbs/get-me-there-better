@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Content, ListItem, CheckBox, Text, Body, H3 } from 'native-base'
 
-const UserPreference  = (props) => {
+const UserPriority  = (props) => {
 
   return (
     <Container style={{ height: 200}}>
@@ -30,4 +30,4 @@ const UserPreference  = (props) => {
   )
 }
 
-export default UserPreference
+export default UserPriority
