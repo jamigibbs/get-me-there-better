@@ -13,3 +13,4 @@ const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export default store
 
 export * from './UserReducer'
+export * from './TransitReducer'
