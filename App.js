@@ -3,36 +3,26 @@ import { Provider } from 'react-redux'
 import { createStackNavigator } from 'react-navigation'
 import store from './client/store'
 import { StyleSheet } from 'react-native'
-import { Container, Header, Content, Left, Right, Title, Body } from 'native-base'
-import { UserSurvey, TestNav } from './client/components'
+import { Container, Header, Left, Right, Title, Body } from 'native-base'
+import { UserSurvey, RouteOptions } from './client/components'
 
 const RootStack = createStackNavigator(
   {
     Home: UserSurvey,
-    Result: TestNav
+    RouteOptions: RouteOptions
   },
   {
     initialRouteName: 'Home'
   }
 )
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
-
-export default class App extends React.Component {
-  render() {
+const App = () =>  {
     return (
       <Provider store={store}>
         <Container>
 
           <Header>
-            <Left/>
+            <Left />
             <Body>
               <Title>Header</Title>
             </Body>
@@ -41,10 +31,9 @@ export default class App extends React.Component {
 
           <RootStack />
 
-          {/* <UserSurvey /> */}
-
         </Container>
       </Provider>
     )
-  }
 }
+
+export default App

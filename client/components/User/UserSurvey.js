@@ -37,7 +37,7 @@ class UserSurvey extends Component {
   // }
 
   handleSubmit = () => {
-    this.props.navigation.navigate('Result', {
+    this.props.navigation.navigate('RouteOptions', {
       userState: this.props.userState
     })
   }

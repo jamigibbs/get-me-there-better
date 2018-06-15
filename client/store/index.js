@@ -1,9 +1,11 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {UserReducer} from './UserReducer'
+import { TransitReducer } from './TransitReducer'
 
 const rootReducer = combineReducers({
-  UserReducer
+  UserReducer,
+  TransitReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
