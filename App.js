@@ -1,9 +1,20 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import { createStackNavigator } from 'react-navigation'
 import store from './client/store'
 import { StyleSheet } from 'react-native'
 import { Container, Header, Content, Left, Right, Title, Body } from 'native-base'
-import { UserSurvey } from './client/components'
+import { UserSurvey, TestNav } from './client/components'
+
+const RootStack = createStackNavigator(
+  {
+    Home: UserSurvey,
+    Result: TestNav
+  },
+  {
+    initialRouteName: 'Home'
+  }
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +39,9 @@ export default class App extends React.Component {
             <Right />
           </Header>
 
-          <Content>
-            <UserSurvey />
-          </Content>
+          <RootStack />
+
+          {/* <UserSurvey /> */}
 
         </Container>
       </Provider>
