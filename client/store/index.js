@@ -1,11 +1,11 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {UserReducer} from './UserReducer'
-import { TransitReducer } from './TransitReducer'
+import { DirectionsReducer } from './DirectionsReducer'
 
 const rootReducer = combineReducers({
   UserReducer,
-  TransitReducer
+  DirectionsReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -13,4 +13,4 @@ const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export default store
 
 export * from './UserReducer'
-export * from './TransitReducer'
+export * from './DirectionsReducer'

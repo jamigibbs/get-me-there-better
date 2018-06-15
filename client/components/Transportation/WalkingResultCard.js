@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { Linking } from 'react-native'
 import { getTravelTime } from '../../store'
 import { Container, Header, Content, List, ListItem, Thumbnail, Right, Left, Body, Text, H3, Button, Badge } from 'native-base'
-import { convertSecondsToMin, convertCentsToDollar} from '../../utils/helpers'
+import { convertSecondsToMin } from '../../utils/helpers'
 
-class TransitResultCard extends Component {
+class WalkingResultCard extends Component {
 
   componentDidMount () {
     const origin = this.props.currentLocation
     const destination = this.props.destination
-    this.props.getTransitTravelTime(origin, destination, 'transit')
+    this.props.getWalkingTravelTime(origin, destination, 'walking')
   }
 
   render(){
@@ -19,21 +19,21 @@ class TransitResultCard extends Component {
     const currentLat = this.props.currentLocation.coords.latitude
     const currentLng = this.props.currentLocation.coords.longitude
 
-    const mapDirectionsTransit = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLng}&destination=${this.props.destination}&travelmode=transit`
+    const mapDirectionsTransit = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLng}&destination=${this.props.destination}&travelmode=walking`
 
     return (
         <Content>
-          <List>
+
             <ListItem avatar>
               <Left>
-                <Thumbnail source={require('../../../assets/cta_logo.jpg')} />
+                <Thumbnail small source={require('../../../assets/walking_logo.png')} />
               </Left>
               <Body>
-                <Text>CTA Transit <Badge success><Text>Best</Text></Badge> </Text>
+                <Text>Walking</Text>
                 { this.props.travelTimeSeconds &&
                   <Content>
                     <Text note>
-                      Cost: {convertCentsToDollar(costCents)}
+                      Cost: Free
                     </Text>
                     <Text note>
                       Travel Time: {'\n'} ~ {convertSecondsToMin(travelTimeSeconds)}
@@ -49,7 +49,6 @@ class TransitResultCard extends Component {
                 </Button>
               </Right>
             </ListItem>
-          </List>
 
         </Content>
     )
@@ -57,18 +56,18 @@ class TransitResultCard extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.DirectionsReducer)
   return {
-    travelTimeSeconds: state.DirectionsReducer.transit.travelTimeSeconds,
-    costCents: state.DirectionsReducer.transit.costCents
+    travelTimeSeconds: state.DirectionsReducer.walking.travelTimeSeconds
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTransitTravelTime: (origin, destination, mode) => {
+    getWalkingTravelTime: (origin, destination, mode) => {
       dispatch(getTravelTime(origin, destination, mode))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransitResultCard)
+export default connect(mapStateToProps, mapDispatchToProps)(WalkingResultCard)
