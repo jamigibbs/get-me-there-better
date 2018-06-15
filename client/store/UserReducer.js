@@ -1,6 +1,5 @@
 import axios from  'axios'
 import { Location, Permissions } from 'expo'
-import DeviceInfo from 'react-native-device-info'
 
 /**
  * ACTION TYPES
@@ -47,9 +46,9 @@ export const getDestination = (location) => {
  * Thunk CREATORS
  */
 
-const isSimulator = () => {
-  return DeviceInfo.isEmulator();
-}
+// const isSimulator = () => {
+//   return DeviceInfo.isEmulator();
+// }
 
 const chicagoFSA = {
   coords:  {
@@ -64,9 +63,9 @@ const chicagoFSA = {
   timestamp: 1528996324016.522
 }
 
-export const getCurrentLocation = () => {
+export const getCurrentLocation = (simulator) => {
   return async (dispatch) => {
-    if (!this.isSimulator) {
+    if (!simulator) {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
 
       if (status !== 'granted') {

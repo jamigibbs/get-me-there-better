@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
-import { Container, Content, Button, Text } from 'native-base'
+import { StyleSheet, Dimensions } from 'react-native'
+import { Container, Content, Button, Text, Footer } from 'native-base'
 import { connect } from 'react-redux'
+import DeviceInfo from 'react-native-device-info'
 import { UserCurrentLocation, UserPriority, UserDestination } from './'
 import { getCurrentLocation, getRoutePriorityType, getDestination } from '../../store'
+
+const styles = StyleSheet.create({
+  button: {
+    marginTop: 50
+  }
+})
 
 class UserSurvey extends Component {
   constructor(){
@@ -11,8 +19,9 @@ class UserSurvey extends Component {
     }
   }
 
-  componentDidMount(){
-    this.props.getCurrentLocation()
+  componentDidMount (){
+    const isSimulator = true;
+    this.props.getCurrentLocation(isSimulator)
   }
 
   handleSelect = (str) => {
@@ -23,10 +32,22 @@ class UserSurvey extends Component {
     this.props.getDestination(data)
   }
 
+  // isSimulator = () => {
+  //   return DeviceInfo.isEmulator();
+  // }
+
   render() {
     return (
       <Container>
+
         <Content>
+
+        { this.props.currentLocation.coords &&
+            <UserCurrentLocation
+              lat={this.props.currentLocation.coords.latitude}
+              lng={this.props.currentLocation.coords.longitude}
+            />
+        }
 
           { this.props.currentLocation.coords &&
             <UserDestination
@@ -36,28 +57,19 @@ class UserSurvey extends Component {
             />
           }
 
-          <UserPriority active={this.props.priority} selection={this.handleSelect} />
 
-            { this.props.errorMessage &&
-              <Text>{this.props.errorMessage}</Text>
-            }
+          <UserPriority
+            active={this.props.priority}
+            selection={this.handleSelect}
+          />
 
-            { this.props.currentLocation.coords &&
-              <Content>
-                <UserCurrentLocation
-                  lat={this.props.currentLocation.coords.latitude}
-                  lng={this.props.currentLocation.coords.longitude}
-                />
-              </Content>
-            }
+          { this.props.errorMessage &&
+            <Text>{this.props.errorMessage}</Text>
+          }
 
-          <Content>
-
-            <Button full info style={{ marginTop: 20}}>
-              <Text>Get Route Options</Text>
-            </Button>
-
-          </Content>
+          <Button style={styles.button}>
+            <Text>Get Route Options</Text>
+          </Button>
 
         </Content>
 
@@ -76,8 +88,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCurrentLocation: () => {
-      dispatch(getCurrentLocation())
+    getCurrentLocation: (bool) => {
+      dispatch(getCurrentLocation(bool))
     },
     getRoutePriorityType: (str) => {
       dispatch(getRoutePriorityType(str))

@@ -1,13 +1,24 @@
 import React from 'react'
-import { Container, Content, ListItem, CheckBox, Text, Body, H3 } from 'native-base'
+import { StyleSheet } from 'react-native'
+import { Container, Content, ListItem, CheckBox, Text, Body, Card } from 'native-base'
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    top: 50
+  },
+  listItem: {
+    backgroundColor: 'white',
+    marginLeft: 0,
+    paddingLeft: 20
+  }
+})
 
 const UserPriority  = (props) => {
 
   return (
-    <Container style={{ height: 200}}>
-    <H3 style={{marginTop: 50}}>Priority</H3>
-    <Content>
-      <ListItem>
+    <Card style={styles.container}>
+      <ListItem style={styles.listItem}>
         <CheckBox
           checked={props.active === 'cost'}
           onPress={() => props.selection('cost')}
@@ -16,7 +27,7 @@ const UserPriority  = (props) => {
           <Text>Cost</Text>
         </Body>
       </ListItem>
-      <ListItem>
+      <ListItem style={styles.listItem}>
       <CheckBox
           checked={props.active === 'time'}
           onPress={() => props.selection('time')}
@@ -25,8 +36,7 @@ const UserPriority  = (props) => {
           <Text>Time</Text>
         </Body>
       </ListItem>
-    </Content>
-    </Container>
+    </Card>
   )
 }
 
