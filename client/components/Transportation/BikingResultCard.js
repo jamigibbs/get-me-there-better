@@ -34,15 +34,22 @@ class BikingResultCard extends Component {
   loadDivvyWalkingDirections = () => {
     const source = this.props.currentLocation.coords
     const divvyCoord = this.props.nearestDivvy.coord
+    const origin = `${source.latitude}, ${source.longitude}`
+    const destination = `${divvyCoord.lat}, ${divvyCoord.lng}`
 
-    const currentLat = source.latitude
-    const currentLng = source.longitude
-    const divvyLat = divvyCoord.lat
-    const divvyLng = divvyCoord.lng
+    const mapDirectionsWalking = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`
 
-    const mapDirectionsTransit = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLng}&destination=${divvyLat},${divvyLng}&travelmode=walking`
+    return Linking.openURL(mapDirectionsWalking)
+  }
 
-    return Linking.openURL(mapDirectionsTransit)
+  loadDivvyBikingDirections = () => {
+    const source = this.props.nearestDivvy.coord
+    const origin = `${source.lat}, ${source.lng}`
+    const destination = this.props.destination
+
+    const mapDirectionsBiking = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`
+
+    return Linking.openURL(mapDirectionsBiking)
   }
 
   render(){
@@ -80,11 +87,18 @@ class BikingResultCard extends Component {
         </Body>
         <Right>
           { this.props.nearestDivvy.coord &&
-            <Button
-              onPress={this.loadDivvyWalkingDirections}
+            <Content>
+              <Button
+                onPress={this.loadDivvyWalkingDirections}
+                transparent>
+                <Text>To Divvy Station</Text>
+              </Button>
+              <Button
+              onPress={this.loadDivvyBikingDirections}
               transparent>
-              <Text>Divvy Station</Text>
-            </Button>
+                <Text>Biking Route</Text>
+              </Button>
+            </Content>
           }
         </Right>
       </ListItem>

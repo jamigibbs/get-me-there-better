@@ -69,7 +69,6 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
   // from divvy station to destination
   if (divvy && mode === 'biking') {
     origin = `${origin.lat},${origin.lng}`
-    console.log('from divvy station to destination', destination)
   }
 
   let url = `${GOOGLE_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${API_KEY}&mode=${mode}`
