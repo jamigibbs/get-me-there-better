@@ -14,6 +14,7 @@ const GET_TRANSIT_TRAVEL_TIME = 'GET_TRANSIT_TRAVEL_TIME'
 const GET_WALKING_TRAVEL_TIME = 'GET_WALKING_TRAVEL_TIME'
 const GET_NEAREST_DIVVY = 'GET_NEAREST_DIVVY'
 const GET_BIKING_TRAVEL_TIME = 'GET_BIKING_TRAVEL_TIME'
+const RECOMMENDED_ROUTE = 'RECOMMENDED_ROUTE'
 const IS_FETCHING = 'IS_FETCHING'
 const DONE_FETCHING = 'DONE_FETCHING'
 
@@ -21,17 +22,24 @@ const DONE_FETCHING = 'DONE_FETCHING'
  * ACTION CREATORS
  */
 
- const isFetching = () => {
-   return {
-     type: IS_FETCHING
-   }
- }
+const isFetching = () => {
+  return {
+    type: IS_FETCHING
+  }
+}
 
- const doneFetching = () => {
-   return {
-     type: DONE_FETCHING
-   }
- }
+const doneFetching = () => {
+  return {
+    type: DONE_FETCHING
+  }
+}
+
+export const setRecommendedRoute = (route) => {
+  return {
+    type: RECOMMENDED_ROUTE,
+    route
+  }
+}
 
 const gotTransitTravelTime = (time) => {
   return {
@@ -153,10 +161,16 @@ const initialState = {
     timeToStation: 0,
     travelTimeSeconds: 0
   },
-  isFetching: false
+  rideShare: {
+    costCents: 2500,
+    travelTimeSeconds: 900,
+    waitTimeSeconds: 300
+  },
+  isFetching: false,
+  recommended: ''
 }
 
-export const DirectionsReducer = ( state = initialState, action) => {
+export const DirectionsReducer = ( state = initialState, action) => { // eslint-disable-line
   switch (action.type) {
     case GET_TRANSIT_TRAVEL_TIME:
       return {...state, transit: { ...state.transit, travelTimeSeconds: action.time }}
@@ -173,6 +187,8 @@ export const DirectionsReducer = ( state = initialState, action) => {
     }
     case GET_NEAREST_DIVVY:
       return {...state, biking: {...state.biking, nearestDivvy: action.station}}
+    case RECOMMENDED_ROUTE:
+      return {...state, recommended: action.route}
     case IS_FETCHING:
       return {...state, isFetching: true}
     case DONE_FETCHING:

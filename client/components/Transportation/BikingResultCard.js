@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Linking } from 'react-native'
 import { connect } from 'react-redux'
 import { getNearestDivvyStation, getTravelTime } from '../../store'
-import { Spinner, Content, ListItem, Thumbnail, Right, Left, Body, Text, Button } from 'native-base'
+import { Spinner, Content, ListItem, Thumbnail, Right, Left, Body, Text, Button, Badge } from 'native-base'
 import { convertSecondsToMin } from '../../utils/helpers'
 
 class BikingResultCard extends Component {
@@ -55,7 +55,7 @@ class BikingResultCard extends Component {
   }
 
   render(){
-    const { nearestDivvy, timeToStation, travelTimeSeconds, isFetching } = this.props
+    const { nearestDivvy, timeToStation, travelTimeSeconds, isFetching, timeRecommended, priority, recommended } = this.props
 
     if ( isFetching ) {
       return <Spinner />
@@ -72,7 +72,13 @@ class BikingResultCard extends Component {
           />
         </Left>
         <Body>
-          <Text>Bike with Divvy</Text>
+          <Text>Bike with Divvy
+          { recommended === 'biking' &&
+            <Badge success>
+                <Text>Best</Text>
+            </Badge>
+          }
+          </Text>
           {
             <Content>
               <Text note>
@@ -120,6 +126,7 @@ const mapStateToProps = (state) => {
     nearestDivvy: state.DirectionsReducer.biking.nearestDivvy,
     timeToStation: state.DirectionsReducer.biking.timeToStation,
     travelTimeSeconds: state.DirectionsReducer.biking.travelTimeSeconds,
+    recommended: state.DirectionsReducer.recommended,
     isFetching: state.DirectionsReducer.isFetching
   }
 }

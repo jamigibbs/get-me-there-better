@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions } from 'react-native'
 import { Content, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
 import { UserCurrentLocation, UserDestination } from './'
-import { getCurrentLocation, getDestination } from '../../store'
+import { getCurrentLocation, getDestination, setRecommendedRoute } from '../../store'
 
 const styles = StyleSheet.create({
   button: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   }
 })
 
-class UserSurvey extends Component {
+class UserHome extends Component {
 
   componentDidMount (){
     const isSimulator = true;
@@ -31,6 +31,7 @@ class UserSurvey extends Component {
   // }
 
   handleSubmit = () => {
+    this.props.setRecommendedRoute('')
     this.props.navigation.navigate('RouteOptions', {
       userState: this.props.userState
     })
@@ -89,8 +90,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     getDestination: (data) => {
       dispatch(getDestination(data))
+    },
+    setRecommendedRoute: (route) => {
+      dispatch(setRecommendedRoute(route))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSurvey)
+export default connect(mapStateToProps, mapDispatchToProps)(UserHome)

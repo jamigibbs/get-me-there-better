@@ -15,7 +15,7 @@ class TransitResultCard extends Component {
 
   render(){
 
-    const { travelTimeSeconds, costCents, isFetching } = this.props
+    const { travelTimeSeconds, costCents, isFetching, timeRecommended, priority, recommended } = this.props
     const currentLat = this.props.currentLocation.coords.latitude
     const currentLng = this.props.currentLocation.coords.longitude
 
@@ -33,7 +33,13 @@ class TransitResultCard extends Component {
                 <Thumbnail square large source={require('../../../assets/cta_logo.jpg')} />
               </Left>
               <Body>
-                <Text>CTA Transit <Badge success><Text>Best</Text></Badge> </Text>
+                <Text>CTA Transit
+                { recommended === 'transit' &&
+                  <Badge success>
+                    <Text>Best</Text>
+                  </Badge>
+                }
+                </Text>
                 { this.props.travelTimeSeconds &&
                   <Content>
                     <Text note>
@@ -64,7 +70,8 @@ const mapStateToProps = (state) => {
   return {
     travelTimeSeconds: state.DirectionsReducer.transit.travelTimeSeconds,
     costCents: state.DirectionsReducer.transit.costCents,
-    isFetching: state.DirectionsReducer.isFetching
+    isFetching: state.DirectionsReducer.isFetching,
+    recommended: state.DirectionsReducer.recommended
   }
 }
 

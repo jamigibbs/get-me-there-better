@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Linking } from 'react-native'
 import { getTravelTime } from '../../store'
-import { Spinner, Content, ListItem, Thumbnail, Right, Left, Body, Text, Button } from 'native-base'
+import { Spinner, Content, ListItem, Thumbnail, Right, Left, Body, Text, Button, Badge } from 'native-base'
 import { convertSecondsToMin } from '../../utils/helpers'
 
 class WalkingResultCard extends Component {
@@ -14,7 +14,7 @@ class WalkingResultCard extends Component {
   }
 
   render(){
-    const { travelTimeSeconds, costCents, isFetching } = this.props
+    const { travelTimeSeconds, costCents, isFetching, timeRecommended, priority, recommended } = this.props
     const currentLat = this.props.currentLocation.coords.latitude
     const currentLng = this.props.currentLocation.coords.longitude
 
@@ -32,7 +32,13 @@ class WalkingResultCard extends Component {
                 <Thumbnail square large source={require('../../../assets/walking_logo.png')} />
               </Left>
               <Body>
-                <Text>Walking</Text>
+                <Text>Walking
+                { recommended === 'walking' &&
+                  <Badge success>
+                    <Text>Best</Text>
+                  </Badge>
+                }
+                </Text>
                 { this.props.travelTimeSeconds &&
                   <Content>
                     <Text note>
@@ -61,7 +67,8 @@ class WalkingResultCard extends Component {
 const mapStateToProps = (state) => {
   return {
     travelTimeSeconds: state.DirectionsReducer.walking.travelTimeSeconds,
-    isFetching: state.DirectionsReducer.isFetching
+    isFetching: state.DirectionsReducer.isFetching,
+    recommended: state.DirectionsReducer.recommended
   }
 }
 
