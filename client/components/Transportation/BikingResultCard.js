@@ -92,7 +92,7 @@ class BikingResultCard extends Component {
               {
                 travelTimeSeconds &&
                 <Text note>
-                  Travel time: {'\n'} ~ {convertSecondsToMin(travelTimeSeconds)}
+                  Bike time: {'\n'} ~ {convertSecondsToMin(travelTimeSeconds)}
                 </Text>
               }
             </Content>
