@@ -13,6 +13,7 @@ const API_KEY = app.expo.ios.config.googleMapsApiKey
 const GET_TRANSIT_TRAVEL_TIME = 'GET_TRANSIT_TRAVEL_TIME'
 const GET_WALKING_TRAVEL_TIME = 'GET_WALKING_TRAVEL_TIME'
 const GET_NEAREST_DIVVY = 'GET_NEAREST_DIVVY'
+const GET_BIKING_TRAVEL_TIME = 'GET_BIKING_TRAVEL_TIME'
 
 /**
  * ACTION CREATORS
@@ -40,6 +41,14 @@ const gotNearestDivvyStation = (station) => {
   }
 }
 
+const gotBikingTravelTime = (time, divvy = false) => {
+  return {
+    type: GET_BIKING_TRAVEL_TIME,
+    time,
+    divvy
+  }
+}
+
 /**
  * Thunk CREATORS
  * destination: address
@@ -51,13 +60,16 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
     origin = `${origin.coords.latitude}, ${origin.coords.longitude}`
   }
 
+  // from origin to divvy station
   if (divvy && mode === 'walking') {
     origin = `${origin.coords.latitude}, ${origin.coords.longitude}`
     destination = `${destination.lat},${destination.lng}`
   }
 
+  // from divvy station to destination
   if (divvy && mode === 'biking') {
-    // from divvy station to destination
+    origin = `${origin.lat},${origin.lng}`
+    console.log('from divvy station to destination', destination)
   }
 
   let url = `${GOOGLE_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${API_KEY}&mode=${mode}`
@@ -72,10 +84,12 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
 
     if (mode === 'transit'){
       dispatch(gotTransitTravelTime(totalDuration))
-    } else if (mode === 'walking' && !divvy) {
+    } else if (!divvy && mode === 'walking') {
       dispatch(gotWalkingTravelTime(totalDuration))
-    } else if (divvy){
+    } else if (divvy && mode === 'walking'){
       dispatch(gotWalkingTravelTime(totalDuration, true))
+    } else if (divvy && mode === 'biking') {
+      dispatch(gotBikingTravelTime(totalDuration, true))
     }
 
   }
@@ -116,7 +130,8 @@ const initialState = {
   },
   biking: {
     nearestDivvy: {},
-    timeToStation: 0
+    timeToStation: 0,
+    travelTimeSeconds: 0
   }
 }
 
@@ -130,6 +145,9 @@ export const DirectionsReducer = ( state = initialState, action) => {
       } else {
         return {...state, walking: {...state.walking, travelTimeSeconds: action.time}}
       }
+    }
+    case GET_BIKING_TRAVEL_TIME : {
+      return {...state, biking: {...state.biking, travelTimeSeconds: action.time}}
     }
     case GET_NEAREST_DIVVY:
       return {...state, biking: {...state.biking, nearestDivvy: action.station}}

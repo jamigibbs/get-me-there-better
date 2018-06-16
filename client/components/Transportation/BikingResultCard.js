@@ -20,12 +20,15 @@ class BikingResultCard extends Component {
   componentDidUpdate () {
     const nearestDivvy = this.props.nearestDivvy
     const origin = this.props.currentLocation
+    const destination = this.props.destination
 
     this.props.getTimeToDivvyStation(origin, nearestDivvy.coord, 'walking', true)
+    this.bikingTravelTime(destination)
   }
 
-  componentWillUpdate () {
-    console.log('ready for biking route!')
+  bikingTravelTime = async (destination) => {
+    const nearestDivvy = this.props.nearestDivvy
+    await this.props.getBikingTravelTime(nearestDivvy.coord, destination, 'biking', true)
   }
 
   loadDivvyWalkingDirections = () => {
@@ -43,7 +46,7 @@ class BikingResultCard extends Component {
   }
 
   render(){
-    const { nearestDivvy, timeToStation } = this.props
+    const { nearestDivvy, timeToStation, travelTimeSeconds } = this.props
     return (
       <Content>
 
@@ -63,7 +66,13 @@ class BikingResultCard extends Component {
               </Text>
               { nearestDivvy &&
                 <Text note>
-                  Time to Station: {'\n'} ~ {convertSecondsToMin(timeToStation)}
+                  Walk to Station: {'\n'} ~ {convertSecondsToMin(timeToStation)}
+                </Text>
+              }
+              {
+                travelTimeSeconds &&
+                <Text note>
+                  Travel time: {'\n'} ~ {convertSecondsToMin(travelTimeSeconds)}
                 </Text>
               }
             </Content>
@@ -88,7 +97,8 @@ class BikingResultCard extends Component {
 const mapStateToProps = (state) => {
   return {
     nearestDivvy: state.DirectionsReducer.biking.nearestDivvy,
-    timeToStation: state.DirectionsReducer.biking.timeToStation
+    timeToStation: state.DirectionsReducer.biking.timeToStation,
+    travelTimeSeconds: state.DirectionsReducer.biking.travelTimeSeconds
   }
 }
 
@@ -99,6 +109,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getTimeToDivvyStation: (origin, destination, mode, divvy) => {
       dispatch(getTravelTime(origin, destination, mode, divvy))
+    },
+    getBikingTravelTime: (divvyStation, destination, mode, divvy) => {
+      dispatch(getTravelTime(divvyStation, destination, mode, divvy))
     }
   }
 }
