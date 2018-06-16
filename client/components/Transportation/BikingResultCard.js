@@ -28,7 +28,7 @@ class BikingResultCard extends Component {
 
   bikingTravelTime = async (destination) => {
     const nearestDivvy = this.props.nearestDivvy
-    await this.props.getBikingTravelTime(nearestDivvy.coord, destination, 'biking', true)
+    await this.props.getBikingTravelTime(nearestDivvy.coord, destination, 'bicycling', true)
   }
 
   loadDivvyWalkingDirections = () => {

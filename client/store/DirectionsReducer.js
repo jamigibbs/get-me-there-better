@@ -67,7 +67,7 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
   }
 
   // from divvy station to destination
-  if (divvy && mode === 'biking') {
+  if (divvy && mode === 'bicycling') {
     origin = `${origin.lat},${origin.lng}`
   }
 
@@ -87,7 +87,7 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
       dispatch(gotWalkingTravelTime(totalDuration))
     } else if (divvy && mode === 'walking'){
       dispatch(gotWalkingTravelTime(totalDuration, true))
-    } else if (divvy && mode === 'biking') {
+    } else if (divvy && mode === 'bicycling') {
       dispatch(gotBikingTravelTime(totalDuration, true))
     }
 

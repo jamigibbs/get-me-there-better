@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
 })
 
 class UserSurvey extends Component {
-  constructor(){
-    super()
-    this.state = {
-    }
-  }
+  // constructor(){
+  //   super()
+  //   this.state = {
+  //   }
+  // }
 
   componentDidMount (){
     const isSimulator = true;
@@ -62,10 +62,10 @@ class UserSurvey extends Component {
           />
         }
 
-        <UserPriority
+        {/* <UserPriority
           active={this.props.priority}
           selection={this.handleSelect}
-        />
+        /> */}
 
         { this.props.errorMessage &&
           <Text>{this.props.errorMessage}</Text>
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
   return {
     currentLocation: state.UserReducer.currentLocation,
     errorMessage: state.UserReducer.errorMessage,
-    priority: state.UserReducer.priority,
+    // priority: state.UserReducer.priority,
     userState: state.UserReducer
   }
 }
@@ -99,9 +99,9 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentLocation: (bool) => {
       dispatch(getCurrentLocation(bool))
     },
-    getRoutePriorityType: (str) => {
-      dispatch(getRoutePriorityType(str))
-    },
+    // getRoutePriorityType: (str) => {
+    //   dispatch(getRoutePriorityType(str))
+    // },
     getDestination: (data) => {
       dispatch(getDestination(data))
     }
