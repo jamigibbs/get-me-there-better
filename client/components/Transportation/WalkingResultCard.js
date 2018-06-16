@@ -27,8 +27,8 @@ class WalkingResultCard extends Component {
     return (
         <Content style={{marginBottom: 15}}>
 
-            <ListItem avatar style={{backgroundColor: 'white'}}>
-              <Left style={{backgroundColor: 'white'}}>
+            <ListItem avatar>
+              <Left>
                 <Thumbnail
                   square
                   small

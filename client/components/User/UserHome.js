@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions } from 'react-native'
 import { Content, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
 import { UserCurrentLocation, UserDestination } from './'
-import { getCurrentLocation, getDestination, setRecommendedRoute } from '../../store'
+import { getCurrentLocation, getDestination, setRecommendedRoute, getRoutePriorityType } from '../../store'
 
 const styles = StyleSheet.create({
   button: {
@@ -32,6 +32,8 @@ class UserHome extends Component {
 
   handleSubmit = () => {
     this.props.setRecommendedRoute('')
+    this.props.setRoutePriority('')
+
     this.props.navigation.navigate('RouteOptions', {
       userState: this.props.userState
     })
@@ -93,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setRecommendedRoute: (route) => {
       dispatch(setRecommendedRoute(route))
+    },
+    setRoutePriority: (str) => {
+      dispatch(getRoutePriorityType(str))
     }
   }
 }

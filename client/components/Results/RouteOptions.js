@@ -133,13 +133,7 @@ class RouteOptions extends Component {
         </List>
 
       </Content>
-      <Footer>
-        <FooterTab>
-          <Button full>
-            <Text>Footer</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
+
     </Container>
   )
   }
