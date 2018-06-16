@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { StyleSheet, Dimensions } from 'react-native'
-import { Container, Content, Button, Text, Footer } from 'native-base'
+import { Content, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
-import { createStackNavigator } from 'react-navigation'
-import { UserCurrentLocation, UserPriority, UserDestination } from './'
-import { getCurrentLocation, getRoutePriorityType, getDestination } from '../../store'
+import { UserCurrentLocation, UserDestination } from './'
+import { getCurrentLocation, getDestination } from '../../store'
 
 const styles = StyleSheet.create({
   button: {
@@ -13,11 +12,6 @@ const styles = StyleSheet.create({
 })
 
 class UserSurvey extends Component {
-  // constructor(){
-  //   super()
-  //   this.state = {
-  //   }
-  // }
 
   componentDidMount (){
     const isSimulator = true;
@@ -62,11 +56,6 @@ class UserSurvey extends Component {
           />
         }
 
-        {/* <UserPriority
-          active={this.props.priority}
-          selection={this.handleSelect}
-        /> */}
-
         { this.props.errorMessage &&
           <Text>{this.props.errorMessage}</Text>
         }
@@ -89,7 +78,6 @@ const mapStateToProps = (state) => {
   return {
     currentLocation: state.UserReducer.currentLocation,
     errorMessage: state.UserReducer.errorMessage,
-    // priority: state.UserReducer.priority,
     userState: state.UserReducer
   }
 }
@@ -99,9 +87,6 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentLocation: (bool) => {
       dispatch(getCurrentLocation(bool))
     },
-    // getRoutePriorityType: (str) => {
-    //   dispatch(getRoutePriorityType(str))
-    // },
     getDestination: (data) => {
       dispatch(getDestination(data))
     }

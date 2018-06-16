@@ -2,8 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStackNavigator } from 'react-navigation'
 import store from './client/store'
-// import { StyleSheet } from 'react-native'
-import { Container, Header, Left, Right, Title, Body } from 'native-base'
+import { Container } from 'native-base'
 import { UserHome, RouteOptions } from './client/components'
 
 const RootStack = createStackNavigator(
@@ -20,14 +19,6 @@ const App = () =>  {
     return (
       <Provider store={store}>
         <Container>
-
-          {/* <Header>
-            <Left />
-            <Body>
-              <Title>Header</Title>
-            </Body>
-            <Right />
-          </Header> */}
 
           <RootStack />
 
