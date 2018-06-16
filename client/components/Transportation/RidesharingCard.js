@@ -25,11 +25,15 @@ class RidesharingCard extends Component {
     }
 
     return (
-        <Content>
+        <Content style={{marginBottom: 15}}>
 
-            <ListItem>
+            <ListItem avatar>
               <Left>
-                <Thumbnail square large source={require('../../../assets/lyft_logo.png')} />
+                <Thumbnail
+                  square
+                  small
+                  source={require('../../../assets/lyft_logo.png')}
+                />
               </Left>
               <Body>
                 <Text>Rideshare
@@ -54,7 +58,7 @@ class RidesharingCard extends Component {
                 <Button
                   onPress={() => Linking.openURL(mapDirectionsTransit)}
                   transparent>
-                  <Text>View</Text>
+                  <Text>View Route</Text>
                 </Button>
               </Right>
             </ListItem>

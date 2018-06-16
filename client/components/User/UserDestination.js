@@ -36,7 +36,7 @@ const UserDestination  = (props) => {
   return (
 
     <GooglePlacesAutocomplete
-      placeholder="Enter Destination"
+      placeholder="Where would you like to go?"
       minLength={2}
       autoFocus={false}
       returnKeyType="default"

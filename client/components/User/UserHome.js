@@ -62,7 +62,7 @@ class UserHome extends Component {
         }
 
         <Button
-          block info
+          full info
           onPress={this.handleSubmit}
           style={styles.button}
         >

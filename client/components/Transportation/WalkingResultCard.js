@@ -25,11 +25,15 @@ class WalkingResultCard extends Component {
     }
 
     return (
-        <Content>
+        <Content style={{marginBottom: 15}}>
 
             <ListItem avatar style={{backgroundColor: 'white'}}>
               <Left style={{backgroundColor: 'white'}}>
-                <Thumbnail square large source={require('../../../assets/walking_logo.png')} />
+                <Thumbnail
+                  square
+                  small
+                  source={require('../../../assets/walking_logo.png')}
+                />
               </Left>
               <Body>
                 <Text>Walking
@@ -54,7 +58,7 @@ class WalkingResultCard extends Component {
                 <Button
                   onPress={() => Linking.openURL(mapDirectionsTransit)}
                   transparent>
-                  <Text>View</Text>
+                  <Text>View Route</Text>
                 </Button>
               </Right>
             </ListItem>

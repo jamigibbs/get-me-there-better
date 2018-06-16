@@ -26,11 +26,15 @@ class TransitResultCard extends Component {
     }
 
     return (
-        <Content>
+        <Content style={{marginBottom: 10}}>
           <List>
             <ListItem avatar>
               <Left>
-                <Thumbnail square large source={require('../../../assets/cta_logo.jpg')} />
+                <Thumbnail
+                  square
+                  small
+                  source={require('../../../assets/cta_logo.jpg')}
+                />
               </Left>
               <Body>
                 <Text>CTA Transit
@@ -55,7 +59,7 @@ class TransitResultCard extends Component {
                 <Button
                   onPress={() => Linking.openURL(mapDirectionsTransit)}
                   transparent>
-                  <Text>View</Text>
+                  <Text>View Route</Text>
                 </Button>
               </Right>
             </ListItem>

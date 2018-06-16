@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Content, Footer, FooterTab, Button, Text, List, H3, Spinner } from 'native-base'
+import { Container, Content, Footer, FooterTab, Button, Text, List, Card, CardItem, H3 } from 'native-base'
 import { TransitResultCard, WalkingResultCard, BikingResultCard, RidesharingCard } from '../Transportation'
 import { UserPriority } from '../User'
 import { getRoutePriorityType, setRecommendedRoute } from '../../store'
@@ -95,8 +95,14 @@ class RouteOptions extends Component {
 
       <Content>
 
-        <H3>Where You're Going</H3>
-        <Text>{address}</Text>
+        <Card>
+          <CardItem header>
+            <H3>Where You're Going</H3>
+          </CardItem>
+          <CardItem>
+            <Text>{address}</Text>
+          </CardItem>
+        </Card>
 
         <List>
 

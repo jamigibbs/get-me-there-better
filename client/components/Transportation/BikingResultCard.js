@@ -62,12 +62,12 @@ class BikingResultCard extends Component {
     }
 
     return (
-      <Content>
+      <Content style={{marginBottom: 10}}>
 
       <ListItem avatar>
         <Left>
           <Thumbnail
-            large square
+            small square
             source={require('../../../assets/divvy_logo.png')}
           />
         </Left>
@@ -104,7 +104,7 @@ class BikingResultCard extends Component {
               <Button
                 onPress={this.loadDivvyWalkingDirections}
                 transparent>
-                <Text>To Divvy Station</Text>
+                <Text>Station Route</Text>
               </Button>
               <Button
               onPress={this.loadDivvyBikingDirections}
