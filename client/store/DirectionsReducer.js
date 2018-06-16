@@ -46,14 +46,21 @@ const gotNearestDivvyStation = (station) => {
  * origin: coordinates
  */
 export const getTravelTime = (origin, destination, mode, divvy = false) => {
-  const currentLat = origin.coords.latitude
-  const currentLng = origin.coords.longitude
 
-  if (divvy) {
+  if (!divvy) {
+    origin = `${origin.coords.latitude}, ${origin.coords.longitude}`
+  }
+
+  if (divvy && mode === 'walking') {
+    origin = `${origin.coords.latitude}, ${origin.coords.longitude}`
     destination = `${destination.lat},${destination.lng}`
   }
 
-  let url = `${GOOGLE_DIRECTIONS_URL}?origin=${currentLat},${currentLng}&destination=${destination}&key=${API_KEY}&mode=${mode}`
+  if (divvy && mode === 'biking') {
+    // from divvy station to destination
+  }
+
+  let url = `${GOOGLE_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${API_KEY}&mode=${mode}`
 
   return async (dispatch) => {
     const { data } = await axios.get(url)

@@ -24,6 +24,10 @@ class BikingResultCard extends Component {
     this.props.getTimeToDivvyStation(origin, nearestDivvy.coord, 'walking', true)
   }
 
+  componentWillUpdate () {
+    console.log('ready for biking route!')
+  }
+
   loadDivvyWalkingDirections = () => {
     const source = this.props.currentLocation.coords
     const divvyCoord = this.props.nearestDivvy.coord
