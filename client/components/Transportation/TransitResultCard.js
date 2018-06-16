@@ -26,7 +26,7 @@ class TransitResultCard extends Component {
           <List>
             <ListItem avatar>
               <Left>
-                <Thumbnail source={require('../../../assets/cta_logo.jpg')} />
+                <Thumbnail square large source={require('../../../assets/cta_logo.jpg')} />
               </Left>
               <Body>
                 <Text>CTA Transit <Badge success><Text>Best</Text></Badge> </Text>

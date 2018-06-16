@@ -14,7 +14,6 @@ class WalkingResultCard extends Component {
   }
 
   render(){
-
     const { travelTimeSeconds, costCents } = this.props
     const currentLat = this.props.currentLocation.coords.latitude
     const currentLng = this.props.currentLocation.coords.longitude
@@ -24,9 +23,9 @@ class WalkingResultCard extends Component {
     return (
         <Content>
 
-            <ListItem avatar>
-              <Left>
-                <Thumbnail small source={require('../../../assets/walking_logo.png')} />
+            <ListItem avatar style={{backgroundColor: 'white'}}>
+              <Left style={{backgroundColor: 'white'}}>
+                <Thumbnail square large source={require('../../../assets/walking_logo.png')} />
               </Left>
               <Body>
                 <Text>Walking</Text>
@@ -56,7 +55,6 @@ class WalkingResultCard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.DirectionsReducer)
   return {
     travelTimeSeconds: state.DirectionsReducer.walking.travelTimeSeconds
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Content, Footer, FooterTab, Button, Text, List, H3 } from 'native-base'
-import { TransitResultCard, WalkingResultCard } from '../Transportation'
+import { TransitResultCard, WalkingResultCard, BikingResultCard } from '../Transportation'
 
 const RouteOptions  = (props) => {
   const { navigation } = props
@@ -9,7 +9,7 @@ const RouteOptions  = (props) => {
   const address = userState.destination.description
 
   return (
-    <Container>
+    <Container style={{backgroundColor: 'white'}}>
       <Content>
 
           <H3>Where You're Going</H3>
@@ -23,6 +23,11 @@ const RouteOptions  = (props) => {
             />
 
             <WalkingResultCard
+              currentLocation={currentLocation}
+              destination={address}
+            />
+
+            <BikingResultCard
               currentLocation={currentLocation}
               destination={address}
             />
