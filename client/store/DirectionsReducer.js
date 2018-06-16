@@ -25,10 +25,11 @@ const gotTransitTravelTime = (time) => {
   }
 }
 
-const gotWalkingTravelTime = (time) => {
+const gotWalkingTravelTime = (time, divvy = false) => {
   return {
     type: GET_WALKING_TRAVEL_TIME,
-    time
+    time,
+    divvy
   }
 }
 
@@ -41,12 +42,18 @@ const gotNearestDivvyStation = (station) => {
 
 /**
  * Thunk CREATORS
+ * destination: address
+ * origin: coordinates
  */
-export const getTravelTime = (origin, destination, mode) => {
+export const getTravelTime = (origin, destination, mode, divvy = false) => {
   const currentLat = origin.coords.latitude
   const currentLng = origin.coords.longitude
 
-  const url = `${GOOGLE_DIRECTIONS_URL}?origin=${currentLat},${currentLng}&destination=${destination}&key=${API_KEY}&mode=${mode}`
+  if (divvy) {
+    destination = `${destination.lat},${destination.lng}`
+  }
+
+  let url = `${GOOGLE_DIRECTIONS_URL}?origin=${currentLat},${currentLng}&destination=${destination}&key=${API_KEY}&mode=${mode}`
 
   return async (dispatch) => {
     const { data } = await axios.get(url)
@@ -58,8 +65,10 @@ export const getTravelTime = (origin, destination, mode) => {
 
     if (mode === 'transit'){
       dispatch(gotTransitTravelTime(totalDuration))
-    } else if (mode === 'walking'){
+    } else if (mode === 'walking' && !divvy) {
       dispatch(gotWalkingTravelTime(totalDuration))
+    } else if (divvy){
+      dispatch(gotWalkingTravelTime(totalDuration, true))
     }
 
   }
@@ -99,7 +108,8 @@ const initialState = {
     travelTimeSeconds: 0
   },
   biking: {
-    nearestDivvy: {}
+    nearestDivvy: {},
+    timeToStation: 0
   }
 }
 
@@ -107,8 +117,13 @@ export const DirectionsReducer = ( state = initialState, action) => {
   switch (action.type) {
     case GET_TRANSIT_TRAVEL_TIME:
       return {...state, transit: { ...state.transit, travelTimeSeconds: action.time }}
-    case GET_WALKING_TRAVEL_TIME:
-      return {...state, walking: {...state.walking, travelTimeSeconds: action.time}}
+    case GET_WALKING_TRAVEL_TIME: {
+      if (action.divvy) {
+        return {...state, biking: {...state.biking, timeToStation: action.time}}
+      } else {
+        return {...state, walking: {...state.walking, travelTimeSeconds: action.time}}
+      }
+    }
     case GET_NEAREST_DIVVY:
       return {...state, biking: {...state.biking, nearestDivvy: action.station}}
     default:
