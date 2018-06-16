@@ -14,10 +14,24 @@ const GET_TRANSIT_TRAVEL_TIME = 'GET_TRANSIT_TRAVEL_TIME'
 const GET_WALKING_TRAVEL_TIME = 'GET_WALKING_TRAVEL_TIME'
 const GET_NEAREST_DIVVY = 'GET_NEAREST_DIVVY'
 const GET_BIKING_TRAVEL_TIME = 'GET_BIKING_TRAVEL_TIME'
+const IS_FETCHING = 'IS_FETCHING'
+const DONE_FETCHING = 'DONE_FETCHING'
 
 /**
  * ACTION CREATORS
  */
+
+ const isFetching = () => {
+   return {
+     type: IS_FETCHING
+   }
+ }
+
+ const doneFetching = () => {
+   return {
+     type: DONE_FETCHING
+   }
+ }
 
 const gotTransitTravelTime = (time) => {
   return {
@@ -74,6 +88,7 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
   let url = `${GOOGLE_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${API_KEY}&mode=${mode}`
 
   return async (dispatch) => {
+    dispatch(isFetching())
     const { data } = await axios.get(url)
 
     let totalDuration = 0;
@@ -83,12 +98,16 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
 
     if (mode === 'transit'){
       dispatch(gotTransitTravelTime(totalDuration))
+      dispatch(doneFetching())
     } else if (!divvy && mode === 'walking') {
       dispatch(gotWalkingTravelTime(totalDuration))
+      dispatch(doneFetching())
     } else if (divvy && mode === 'walking'){
       dispatch(gotWalkingTravelTime(totalDuration, true))
+      dispatch(doneFetching())
     } else if (divvy && mode === 'bicycling') {
       dispatch(gotBikingTravelTime(totalDuration, true))
+      dispatch(doneFetching())
     }
 
   }
@@ -125,13 +144,16 @@ const initialState = {
     travelTimeSeconds: 0
   },
   walking: {
+    costCents: 0,
     travelTimeSeconds: 0
   },
   biking: {
+    costCents: 300,
     nearestDivvy: {},
     timeToStation: 0,
     travelTimeSeconds: 0
-  }
+  },
+  isFetching: false
 }
 
 export const DirectionsReducer = ( state = initialState, action) => {
@@ -140,16 +162,21 @@ export const DirectionsReducer = ( state = initialState, action) => {
       return {...state, transit: { ...state.transit, travelTimeSeconds: action.time }}
     case GET_WALKING_TRAVEL_TIME: {
       if (action.divvy) {
-        return {...state, biking: {...state.biking, timeToStation: action.time}}
+        return {...state,
+          biking: {...state.biking, timeToStation: action.time} }
       } else {
         return {...state, walking: {...state.walking, travelTimeSeconds: action.time}}
       }
     }
-    case GET_BIKING_TRAVEL_TIME : {
+    case GET_BIKING_TRAVEL_TIME: {
       return {...state, biking: {...state.biking, travelTimeSeconds: action.time}}
     }
     case GET_NEAREST_DIVVY:
       return {...state, biking: {...state.biking, nearestDivvy: action.station}}
+    case IS_FETCHING:
+      return {...state, isFetching: true}
+    case DONE_FETCHING:
+      return {...state, isFetching: false}
     default:
       return state
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Linking } from 'react-native'
 import { getTravelTime } from '../../store'
-import { Container, Header, Content, List, ListItem, Thumbnail, Right, Left, Body, Text, H3, Button, Badge } from 'native-base'
+import { Spinner, Content, List, ListItem, Thumbnail, Right, Left, Body, Text, H3, Button, Badge } from 'native-base'
 import { convertSecondsToMin, convertCentsToDollar} from '../../utils/helpers'
 
 class TransitResultCard extends Component {
@@ -15,11 +15,15 @@ class TransitResultCard extends Component {
 
   render(){
 
-    const { travelTimeSeconds, costCents } = this.props
+    const { travelTimeSeconds, costCents, isFetching } = this.props
     const currentLat = this.props.currentLocation.coords.latitude
     const currentLng = this.props.currentLocation.coords.longitude
 
     const mapDirectionsTransit = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLng}&destination=${this.props.destination}&travelmode=transit`
+
+    if ( isFetching ) {
+      return <Spinner />
+    }
 
     return (
         <Content>
@@ -59,7 +63,8 @@ class TransitResultCard extends Component {
 const mapStateToProps = (state) => {
   return {
     travelTimeSeconds: state.DirectionsReducer.transit.travelTimeSeconds,
-    costCents: state.DirectionsReducer.transit.costCents
+    costCents: state.DirectionsReducer.transit.costCents,
+    isFetching: state.DirectionsReducer.isFetching
   }
 }
 

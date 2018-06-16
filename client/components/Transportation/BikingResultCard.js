@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Linking } from 'react-native'
 import { connect } from 'react-redux'
 import { getNearestDivvyStation, getTravelTime } from '../../store'
-import { Content, ListItem, Thumbnail, Right, Left, Body, Text, Button } from 'native-base'
+import { Spinner, Content, ListItem, Thumbnail, Right, Left, Body, Text, Button } from 'native-base'
 import { convertSecondsToMin } from '../../utils/helpers'
 
 class BikingResultCard extends Component {
@@ -17,13 +17,15 @@ class BikingResultCard extends Component {
     this.props.getNearestDivvyStation(lat, lng)
   }
 
-  componentDidUpdate () {
-    const nearestDivvy = this.props.nearestDivvy
-    const origin = this.props.currentLocation
-    const destination = this.props.destination
+  componentDidUpdate (prevProps) {
+    if (prevProps.nearestDivvy !== this.props.nearestDivvy) {
+      const nearestDivvy = this.props.nearestDivvy
+      const origin = this.props.currentLocation
+      const destination = this.props.destination
 
-    this.props.getTimeToDivvyStation(origin, nearestDivvy.coord, 'walking', true)
-    this.bikingTravelTime(destination)
+      this.props.getTimeToDivvyStation(origin, nearestDivvy.coord, 'walking', true)
+      this.bikingTravelTime(destination)
+    }
   }
 
   bikingTravelTime = async (destination) => {
@@ -53,7 +55,12 @@ class BikingResultCard extends Component {
   }
 
   render(){
-    const { nearestDivvy, timeToStation, travelTimeSeconds } = this.props
+    const { nearestDivvy, timeToStation, travelTimeSeconds, isFetching } = this.props
+
+    if ( isFetching ) {
+      return <Spinner />
+    }
+
     return (
       <Content>
 
@@ -112,7 +119,8 @@ const mapStateToProps = (state) => {
   return {
     nearestDivvy: state.DirectionsReducer.biking.nearestDivvy,
     timeToStation: state.DirectionsReducer.biking.timeToStation,
-    travelTimeSeconds: state.DirectionsReducer.biking.travelTimeSeconds
+    travelTimeSeconds: state.DirectionsReducer.biking.travelTimeSeconds,
+    isFetching: state.DirectionsReducer.isFetching
   }
 }
 

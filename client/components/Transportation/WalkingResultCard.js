@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Linking } from 'react-native'
 import { getTravelTime } from '../../store'
-import { Container, Header, Content, List, ListItem, Thumbnail, Right, Left, Body, Text, H3, Button, Badge } from 'native-base'
+import { Spinner, Content, ListItem, Thumbnail, Right, Left, Body, Text, Button } from 'native-base'
 import { convertSecondsToMin } from '../../utils/helpers'
 
 class WalkingResultCard extends Component {
@@ -14,11 +14,15 @@ class WalkingResultCard extends Component {
   }
 
   render(){
-    const { travelTimeSeconds, costCents } = this.props
+    const { travelTimeSeconds, costCents, isFetching } = this.props
     const currentLat = this.props.currentLocation.coords.latitude
     const currentLng = this.props.currentLocation.coords.longitude
 
     const mapDirectionsTransit = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLng}&destination=${this.props.destination}&travelmode=walking`
+
+    if ( isFetching ) {
+      return <Spinner />
+    }
 
     return (
         <Content>
@@ -56,7 +60,8 @@ class WalkingResultCard extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    travelTimeSeconds: state.DirectionsReducer.walking.travelTimeSeconds
+    travelTimeSeconds: state.DirectionsReducer.walking.travelTimeSeconds,
+    isFetching: state.DirectionsReducer.isFetching
   }
 }
 
