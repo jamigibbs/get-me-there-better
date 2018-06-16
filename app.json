@@ -23,8 +23,7 @@
     "ios": {
       "bundleIdentifier": "com.jamigibbs.stackathon",
       "config": {
-        "googleMapsApiKey": "AIzaSyAAtMWDEaWIrKmBv-FYLZWbeTIfRkOQfcg",
-        "googlePlacesApiKey": "AIzaSyAqXPugfxpna7RJJ4Aw1a2RQDwHfdGtKWw"
+        "googleMapsApiKey": "AIzaSyAAtMWDEaWIrKmBv-FYLZWbeTIfRkOQfcg"
       },
       "supportsTablet": false
     }

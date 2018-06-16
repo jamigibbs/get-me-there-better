@@ -43,7 +43,7 @@ const UserDestination  = (props) => {
       fetchDetails={false}
       definesPresentationContext={false}
       query={{
-        key: app.expo.ios.config.googlePlacesApiKey,
+        key: app.expo.ios.config.googleMapsApiKey,
         location: chicagoLocation,
         language: 'en',
         types: 'address'
