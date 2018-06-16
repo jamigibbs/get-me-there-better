@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Content, Footer, FooterTab, Button, Text, List, H3, Spinner } from 'native-base'
-import { TransitResultCard, WalkingResultCard, BikingResultCard } from '../Transportation'
+import { TransitResultCard, WalkingResultCard, BikingResultCard, RidesharingCard } from '../Transportation'
 import { UserPriority } from '../User'
 import { getRoutePriorityType, setRecommendedRoute } from '../../store'
 
@@ -103,21 +103,24 @@ class RouteOptions extends Component {
           <TransitResultCard
             currentLocation={currentLocation}
             destination={address}
-            // timeRecommended={this.routeTimeAnalysis()}
             priority={priority}
           />
 
           <WalkingResultCard
             currentLocation={currentLocation}
             destination={address}
-            // timeRecommended={this.routeTimeAnalysis()}
             priority={priority}
           />
 
           <BikingResultCard
             currentLocation={currentLocation}
             destination={address}
-            // timeRecommended={this.routeTimeAnalysis()}
+            priority={priority}
+          />
+
+          <RidesharingCard
+            currentLocation={currentLocation}
+            destination={address}
             priority={priority}
           />
 

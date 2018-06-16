@@ -14,6 +14,7 @@ const GET_TRANSIT_TRAVEL_TIME = 'GET_TRANSIT_TRAVEL_TIME'
 const GET_WALKING_TRAVEL_TIME = 'GET_WALKING_TRAVEL_TIME'
 const GET_NEAREST_DIVVY = 'GET_NEAREST_DIVVY'
 const GET_BIKING_TRAVEL_TIME = 'GET_BIKING_TRAVEL_TIME'
+const GET_RIDESHARE_TRAVEL_TIME = 'GET_RIDESHARE_TRAVEL_TIME'
 const RECOMMENDED_ROUTE = 'RECOMMENDED_ROUTE'
 const IS_FETCHING = 'IS_FETCHING'
 const DONE_FETCHING = 'DONE_FETCHING'
@@ -71,6 +72,13 @@ const gotBikingTravelTime = (time, divvy = false) => {
   }
 }
 
+const gotRideshareTravelTime = (time) => {
+  return {
+    type: GET_RIDESHARE_TRAVEL_TIME,
+    time
+  }
+}
+
 /**
  * Thunk CREATORS
  * destination: address
@@ -95,7 +103,7 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
 
   let url = `${GOOGLE_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${API_KEY}&mode=${mode}`
 
-  return async (dispatch) => {
+  return async (dispatch) => { // eslint-disable-line
     dispatch(isFetching())
     const { data } = await axios.get(url)
 
@@ -107,6 +115,8 @@ export const getTravelTime = (origin, destination, mode, divvy = false) => {
     if (mode === 'transit'){
       dispatch(gotTransitTravelTime(totalDuration))
       dispatch(doneFetching())
+    } else if (mode === 'rideshare'){
+      dispatch(gotRideshareTravelTime(totalDuration))
     } else if (!divvy && mode === 'walking') {
       dispatch(gotWalkingTravelTime(totalDuration))
       dispatch(doneFetching())
@@ -162,7 +172,7 @@ const initialState = {
     travelTimeSeconds: 0
   },
   rideShare: {
-    costCents: 2500,
+    costCents: 2000,
     travelTimeSeconds: 900,
     waitTimeSeconds: 300
   },
@@ -187,6 +197,8 @@ export const DirectionsReducer = ( state = initialState, action) => { // eslint-
     }
     case GET_NEAREST_DIVVY:
       return {...state, biking: {...state.biking, nearestDivvy: action.station}}
+    case GET_RIDESHARE_TRAVEL_TIME:
+      return {...state, rideShare: {...state.rideShare, travelTimeSeconds: action.time}}
     case RECOMMENDED_ROUTE:
       return {...state, recommended: action.route}
     case IS_FETCHING:
