@@ -98,6 +98,7 @@ export const UserReducer = ( state = initialState, action) => {
     case LOAD_CURRENT_LOCATION_ERROR:
       return {...state, errorMessage: action.error}
     case GET_ROUTE_PRIORITY_TYPE:
+      console.log(action.priority)
       return {...state, priority: action.priority}
     case GET_DESTINATION:
       return {...state, destination: action.location}

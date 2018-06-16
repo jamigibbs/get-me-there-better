@@ -1,2 +1,2 @@
-export { UserSurvey } from './User'
+export { UserHome } from './User'
 export { RouteOptions } from './Results'

@@ -1,42 +1,32 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Container, Content, ListItem, CheckBox, Text, Body, Card } from 'native-base'
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    top: 50
-  },
-  listItem: {
-    backgroundColor: 'white',
-    marginLeft: 0,
-    paddingLeft: 20
-  }
-})
+import { Text, Body, Header, Left, Button, Segment, Right } from 'native-base'
 
 const UserPriority  = (props) => {
-
+  const active = true
   return (
-    <Card style={styles.container}>
-      <ListItem style={styles.listItem}>
-        <CheckBox
-          checked={props.active === 'cost'}
-          onPress={() => props.selection('cost')}
-        />
+
+    <Header hasSegment>
+      <Left />
         <Body>
-          <Text>Cost</Text>
+          <Segment>
+            <Button
+              first
+              {...(props.active === 'cost' ? {active: true} : {})}
+              onPress={() => props.selection('cost')}
+            >
+              <Text>Cost</Text>
+            </Button>
+            <Button
+              last
+              {...(props.active === 'time' ? {active: true} : {})}
+              onPress={() => props.selection('time')}
+            >
+              <Text>Time</Text>
+            </Button>
+          </Segment>
         </Body>
-      </ListItem>
-      <ListItem style={styles.listItem}>
-      <CheckBox
-          checked={props.active === 'time'}
-          onPress={() => props.selection('time')}
-        />
-        <Body>
-          <Text>Time</Text>
-        </Body>
-      </ListItem>
-    </Card>
+      <Right />
+    </Header>
   )
 }
 
