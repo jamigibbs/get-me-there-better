@@ -1,6 +1,6 @@
 # best-way-home-chicago
 
-An experimental iOS app that provides multiple options getting from point A to point B. It indicates an optimal route based on cost or time preference:
+An experimental iOS app that provides multiple options getting from your current location to a given destination. It indicates an optimal route based on cost or time preference via and offers route details for each:
 
 - CTA Transit
 - Divvy Bike
