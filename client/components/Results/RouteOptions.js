@@ -71,7 +71,7 @@ class RouteOptions extends Component {
     } else if (data[0].walking.totalTime < data[0].rideShare.totalTime || data[0].walking.totalTime < data[0].transit.totalTime || data[0].walking.totalTime < data[0].bikingDivvy.totalTime) {
       route = 'walking'
     } else {
-      route = 'rideshare'
+      route = 'biking'
     }
 
     this.props.setRecommendedRoute(route)

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Header } from 'native-base'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import app from '../../../app.json'
 

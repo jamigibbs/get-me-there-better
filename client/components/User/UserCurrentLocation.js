@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, Dimensions } from 'react-native'
-import { Content, Card, CardItem, Body, H3 } from 'native-base'
 import { MapView } from 'expo'
 
 const ScreenHeight = Dimensions.get('window').height;

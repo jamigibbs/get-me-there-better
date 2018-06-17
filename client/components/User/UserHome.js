@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Content, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
 import { UserCurrentLocation, UserDestination } from './'

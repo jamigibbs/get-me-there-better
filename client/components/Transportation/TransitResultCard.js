@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Linking } from 'react-native'
 import { getTravelTime } from '../../store'
-import { Spinner, Content, List, ListItem, Thumbnail, Right, Left, Body, Text, H3, Button, Badge } from 'native-base'
+import { Spinner, Content, List, ListItem, Thumbnail, Right, Left, Body, Text, Button, Badge } from 'native-base'
 import { convertSecondsToMin, convertCentsToDollar} from '../../utils/helpers'
 
 class TransitResultCard extends Component {
