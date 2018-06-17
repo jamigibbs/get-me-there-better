@@ -172,7 +172,7 @@ const initialState = {
     travelTimeSeconds: 0
   },
   rideShare: {
-    costCents: 2000,
+    costCents: 1500,
     travelTimeSeconds: 900,
     waitTimeSeconds: 300
   },

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
 import { Content, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
 import { UserCurrentLocation, UserDestination } from './'
@@ -14,8 +15,9 @@ const styles = StyleSheet.create({
 class UserHome extends Component {
 
   componentDidMount (){
-    const isSimulator = true;
-    this.props.getCurrentLocation(isSimulator)
+    // const isSimulator = true
+    const bool = DeviceInfo.isEmulator()
+    this.props.getCurrentLocation(bool)
   }
 
   handleSelect = (str) => {
@@ -27,7 +29,7 @@ class UserHome extends Component {
   }
 
   // isSimulator = () => {
-  //   return DeviceInfo.isEmulator();
+  //   return DeviceInfo.isEmulator()
   // }
 
   handleSubmit = () => {

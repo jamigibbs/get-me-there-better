@@ -1,4 +1,4 @@
-# best-way-home-chicago
+# get-me-there-chicago
 
 An experimental iOS app that provides multiple options getting from your current location to a given destination. It indicates an optimal route based on cost or time preference via and offers route details for each:
 
@@ -20,5 +20,5 @@ Currently only available for Chicago.
 
 ### Preview
 
-![Best Way Home Screenshots](https://i.imgur.com/PGoTzSV.png)
+![Screenshots](https://i.imgur.com/PGoTzSV.png)
 

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "stackathon",
-    "description": "This project is really great.",
-    "slug": "stackathon",
+    "name": "Get Me There",
+    "description": "iOS app that provides multiple options getting from your current location to a given destination. It indicates an optimal route based on cost or time preference via and offers route details for each",
+    "slug": "get-me-there",
     "privacy": "public",
     "sdkVersion": "28.0.0",
     "platforms": ["ios"],
@@ -21,7 +21,7 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.jamigibbs.stackathon",
+      "bundleIdentifier": "com.jamigibbs.getmethere",
       "config": {
         "googleMapsApiKey": "AIzaSyBtOIMYD1r2k8JRkTHt8Ha1LbTow5YD-yE"
       },

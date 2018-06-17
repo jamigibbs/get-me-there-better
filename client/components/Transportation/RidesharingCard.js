@@ -46,7 +46,7 @@ class RidesharingCard extends Component {
                 { this.props.travelTimeSeconds &&
                   <Content>
                     <Text note>
-                      Cost: {convertCentsToDollar(costCents)}
+                      Cost: ~ {convertCentsToDollar(costCents)}
                     </Text>
                     <Text note>
                       Travel Time: {'\n'} ~ {convertSecondsToMin(travelTimeSeconds)}
