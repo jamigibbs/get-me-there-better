@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
+// import DeviceInfo from 'react-native-device-info'
 import { Content, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
+import Expo from 'expo'
 import { UserCurrentLocation, UserDestination } from './'
 import { getCurrentLocation, getDestination, setRecommendedRoute, getRoutePriorityType } from '../../store'
 
@@ -15,8 +16,25 @@ const styles = StyleSheet.create({
 class UserHome extends Component {
 
   componentDidMount (){
-    // const isSimulator = true
-    const bool = DeviceInfo.isEmulator()
+    let bool = false
+    let deviceSerial = 0
+
+    try {
+      console.log('Expo.Constants.appOwnership', Expo.Constants.appOwnership)
+      if (Expo.Constants.appOwnership == 'expo') {
+        console.log('Running in expo')
+        bool = !bool
+        deviceSerial = Expo.Constants.deviceId;
+      } else {
+        var DeviceInfo = require('react-native-device-info')
+        deviceSerial = DeviceInfo.getUniqueID()
+      }
+      console.log('DEVICE ID FOUND: ', deviceSerial);
+    } catch (e) {
+      console.log('error reading device ID');
+      deviceSerial = 1
+    }
+
     this.props.getCurrentLocation(bool)
   }
 
@@ -27,10 +45,6 @@ class UserHome extends Component {
   handleOnDestinationSearch = (data, details) => {
     this.props.getDestination(data)
   }
-
-  // isSimulator = () => {
-  //   return DeviceInfo.isEmulator()
-  // }
 
   handleSubmit = () => {
     this.props.setRecommendedRoute('')

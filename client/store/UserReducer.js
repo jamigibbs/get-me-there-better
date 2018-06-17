@@ -64,6 +64,7 @@ const chicagoFSA = {
 }
 
 export const getCurrentLocation = (simulator) => {
+  console.log('getCurrentLocation. Simluator?', simulator)
   return async (dispatch) => {
     if (!simulator) {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
