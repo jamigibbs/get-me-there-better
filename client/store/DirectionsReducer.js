@@ -5,6 +5,7 @@ import app from '../../app.json'
 const GOOGLE_DIRECTIONS_URL = 'https://maps.googleapis.com/maps/api/directions/json'
 const GOOGLE_PLACES_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 const API_KEY = app.expo.ios.config.googleMapsApiKey
+const BUNDLE_ID = app.expo.ios.bundleIdentifier
 
 /**
  * ACTION TYPES
@@ -139,11 +140,10 @@ export const getNearestDivvyStation = (lat, lng) => {
 
     const current = {lat, lng}
 
-    const coords = data.results.map((station) => {
+    const closest = data.results.map((station) => {
       return station.geometry.location
     })
-
-    const closest = coords.map((coord) => {
+    .map((coord) => {
       return { coord, dist: geolib.getDistance(current, coord) }
     })
     .sort( (a, b) => a.dist - b.dist )[0]

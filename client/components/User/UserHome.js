@@ -20,7 +20,6 @@ class UserHome extends Component {
     let deviceSerial = 0
 
     try {
-      console.log('Expo.Constants.appOwnership', Expo.Constants.appOwnership)
       if (Expo.Constants.appOwnership == 'expo') {
         console.log('Running in expo')
         bool = !bool

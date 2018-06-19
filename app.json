@@ -21,9 +21,9 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.jamigibbs.getmethere",
+      "bundleIdentifier": "com.jamigibbs.getmetherebetter",
       "config": {
-        "googleMapsApiKey": "AIzaSyBtOIMYD1r2k8JRkTHt8Ha1LbTow5YD-yE"
+        "googleMapsApiKey": "XXX"
       },
       "supportsTablet": false
     }
